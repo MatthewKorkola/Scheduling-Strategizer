@@ -1,0 +1,51 @@
+.task-item {
+    position: absolute;
+    background-color: teal;
+    border: 2px solid transparent; /* Add border for better visualization */
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.task-item.dragging {
+    position: absolute;
+    opacity: 0.5; /* Reduce opacity to create shadowy effect */
+    pointer-events: none; /* Ignore mouse events for the clone */
+}
+
+.task-item.completed {
+    background-color: gold;
+}
+
+.task-item.warning {
+    background-color: yellow;
+}
+
+.task-item.danger {
+    background-color: red;
+}
+
+.corner-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.popup-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 999; /* Ensure popup is on top of other elements */
+    
+}
+
+.popup-menu.show {
+    display: block;
+}
