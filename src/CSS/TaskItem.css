@@ -1,51 +1,96 @@
 .task-item {
-    position: absolute;
-    background-color: teal;
-    border: 2px solid transparent; /* Add border for better visualization */
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 20px;
+    background-color: seagreen;
+    border: 2px solid black;
     border-radius: 10px;
     padding: 10px;
-    cursor: pointer;
+    margin-bottom: 10px; /* Add margin bottom to create space between task items */
+    width: 250px;
+    position: relative;
 }
 
-.task-item.dragging {
-    position: absolute;
-    opacity: 0.5; /* Reduce opacity to create shadowy effect */
-    pointer-events: none; /* Ignore mouse events for the clone */
+.task-item.completed {
+    background-color: gold;
+}/* TaskItem.css */
+.task-item {
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 20px;
+    background-color: seagreen;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px; /* Add margin bottom to create space between task items */
+    width: 250px;
+}
+
+.task-item:hover{
+    background-color: lightgreen;
 }
 
 .task-item.completed {
     background-color: gold;
 }
 
-.task-item.warning {
-    background-color: yellow;
+.task-item.completed:hover {
+    background-color: #FFFB00; /* Lighter shade of gold on hover */
 }
 
-.task-item.danger {
-    background-color: red;
+.task-content {
+    display: flex; /* Display task content in a flex container */
+    flex-direction: column;
 }
 
-.corner-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 20px;
-    height: 20px;
-    background-color: transparent;
+.task-content h3,
+.task-content p {
+    margin: 0; /* Remove default margin for better alignment */
+}
+
+.task-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.task-buttons button {
+    padding: 5px 10px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
 }
 
-.popup-menu {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    z-index: 999; /* Ensure popup is on top of other elements */
-    
+.task-buttons .complete-button {
+    background-color: black;
+    color: white;
 }
 
-.popup-menu.show {
-    display: block;
+.task-buttons .complete-button:hover {
+    background-color: #F5B409;
+}
+
+.task-buttons .delete-button {
+    background-color: black;
+    color: white;
+    justify-content: center;
+}
+
+.task-buttons .delete-button:hover {
+    background-color: red;
+}
+
+
+.task-item:hover {
+    background-color: lightgreen; /* Change color gradually on hover */
+}
+
+.task-content {
+    display: flex; /* Display task content in a flex container */
+    flex-direction: column;
+}
+
+.task-content h3,
+.task-content p {
+    margin: 0; /* Remove default margin for better alignment */
 }
