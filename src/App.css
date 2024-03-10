@@ -6,31 +6,45 @@
   margin: 0;
   padding: 0;
   background-color: #aaf0d1; /* Light green */
-  height: 15vh; /* 15% of viewport height */
+  min-height: 8vh; /* 15% of viewport height */
+  border-bottom: 2px solid black; /* Black border */
+  font-size: 45px;
+  text-shadow: 
+    -1px -1px 0 white,  
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
+}
+
+.pomodoro-section {
+  margin: 0;
+  padding: 0;
+  background-color: #69d2e7; /* Light blue */
+  min-height: 25vh; /* 15% of viewport height */
   border-bottom: 2px solid black; /* Black border */
 }
 
 .pomodoro-section h2 {
   margin: 0;
   padding: 0;
-  background-color: #69d2e7; /* Light blue */
-  height: 15vh; /* 15% of viewport height */
-  border-bottom: 2px solid black; /* Black border */
+}
+
+.pomodoro-section .timer {
+  /*font-size: 2rem;*/
+}
+
+.pomodoro-section .buttons {
+  /*margin-top: 10px;*/
 }
 
 .task-form-section {
   background-color: #2a6e6b; /* Dark green */
-  height: 15vh; /* 15% of viewport height */
+  min-height: 15vh; /* 15% of viewport height */
   border-bottom: 2px solid black; /* Black border */
 }
 
 .task-list-section {
   background-color: #b7d7e8; /* Light blue */
-  min-height: 55vh; /* Remaining height */
+  min-height: 52vh; /* Remaining height */
 }
 
-.footer-section {
-  background-color: #ffb6b9; /* Light red */
-  height: 5vh; /* 5% of viewport height */
-  border-top: 2px solid black; /* Black border */
-}

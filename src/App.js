@@ -3,7 +3,6 @@ import Header from './components/Header';
 import Pomodoro from './components/Pomodoro'
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
-import Footer from './components/Footer';
 import './App.css';
 
 function App() {
@@ -41,9 +40,6 @@ function App() {
             </div>
             <div className="task-list-section">
                 <TaskList tasks={tasks} markTaskCompleted={markTaskCompleted} deleteTask={deleteTask} />
-            </div>
-            <div className="footer-section">
-                <Footer />
             </div>
         </div>
     );
