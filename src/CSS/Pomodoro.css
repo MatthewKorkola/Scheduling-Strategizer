@@ -40,3 +40,87 @@
 .pomodoro-section .buttons button:hover {
   background-color: #0056b3; /* Button background color on hover */
 }
+
+/* Popup styles */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
+  border: 2px solid black;
+  width: 400px;
+  height: 330px;
+}
+
+.popup-header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #999; /* Line below the header */
+  padding-bottom: 10px; /* Spacing below the header */
+}
+
+.popup-footer {
+  text-align: center;
+  margin-top: 10px;
+  border-top: 2px solid #999; /* Line above the footer */
+  padding-top: 10px; /* Spacing above the footer */
+}
+
+.popup-button {
+  padding: 10px 20px; /* Padding for the button */
+  font-size: 16px; /* Font size for the button */
+  cursor: pointer; /* Cursor style for the button */
+  border-radius: 5px; /* Rounded corners for the button */
+  background-color: black; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove border */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.popup-button:hover {
+  background-color: darkgrey; /* Button background color on hover */
+}
+
+.popup-close {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.popup-main label {
+  display: block;
+  margin-bottom: 15px;
+  colour: black /* Black text color */
+}
+
+.popup-main input[type="number"] {
+  width: 60px; /* Shorten the input fields */
+  padding: 8px; /* Padding for input fields */
+  border: 1px solid #ccc; /* Border for input fields */
+  border-radius: 5px; /* Rounded corners for input fields */
+  margin-right: 5px;
+  float: right;
+}
+
+.popup-main input[type="checkbox"] {
+  width: 12px; /* Adjust checkbox size */
+  height: 12px; /* Adjust checkbox size */
+  float: right;
+}
