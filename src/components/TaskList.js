@@ -1,4 +1,5 @@
 import React from 'react';
+import '../CSS/TaskList.css';
 import PropTypes from 'prop-types';
 import TaskItem from './TaskItem';
 
@@ -10,6 +11,7 @@ const TaskList = ({ tasks, currentProject, markTaskCompleted, deleteTask }) => {
 
     return (
         <div className="task-list">
+        <div className="task-text"> Tasks {currentProject ? `(Current Project: ${currentProject.name})` : '(No Project Open)'} </div>
             {filteredTasks.map(task => (
                 <TaskItem
                     key={task.id}

@@ -151,7 +151,13 @@ const Pomodoro = () => {
                     {close => (
                         <div className="popup-container">
                             <div className="popup-content">
-                                <div className="popup-header">Settings</div>
+                                <div className="popup-header">Settings
+                                <div className="note-text">
+                                    <label>
+                                        (changes update next timer iteration)
+                                    </label>
+                                </div>
+                                </div>
                                 <div className="popup-main">
                                     <div>
                                         <label>

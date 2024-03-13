@@ -1,0 +1,11 @@
+.task-text {
+	margin: 0;
+    padding: 0;
+    font-size: 32px; /* Font size for timer type */
+    margin-bottom: 10px; /* Bottom margin for spacing */
+    text-shadow: 
+        -1px -1px 0 darkblue,  
+        1px -1px 0 lightblue,
+        -1px 1px 0 lightblue,
+        1px 1px 0 lightblue;
+}

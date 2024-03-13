@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import '../CSS/TaskForm.css';
 import PropTypes from 'prop-types';
+import { Popup } from 'reactjs-popup';
 
 const TaskForm = ({ addTask, createProject, selectProject, deleteProject, currentProject, projectCompletionPercentage, projects }) => {
     const [title, setTitle] = useState('');
     const [deadline, setDeadline] = useState('');
     const [expectedTime, setExpectedTime] = useState('');
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,6 +20,7 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
         setTitle('');
         setDeadline('');
         setExpectedTime('');
+        setIsPopupOpen(false)
     }
 
     const handleCreateProject = () => {
@@ -26,13 +30,17 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
         }
     }
 
+    const handleCreateTaskClick = () => {
+        setIsPopupOpen(true);
+    }
+
     return (
         <div className="task-form">
-        <div> Project and Task Manager </div>
-            <div> <button onClick={handleCreateProject}>Create Project</button> </div>
+        <div className="project-task-manager"> Project and Task Manager </div>
+            <div > <button onClick={handleCreateProject}>Create Project</button> </div>
             <div className="project-actions">
                 <select onChange={(e) => selectProject(e.target.value)}>
-                    <option>Select Project</option>
+                    <option></option>
                     {projects.map(project => (
                         <option key={project.name} value={project.name} selected={currentProject && currentProject.name === project.name}>{project.name}</option>
                     ))}
@@ -44,15 +52,33 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
                     ))}
                 </select>
             </div>
-            <div> Create Task </div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Task title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                <input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
-                <input type="text" placeholder="Expected time" value={expectedTime} onChange={(e) => setExpectedTime(e.target.value)} />
-                <button type="submit">Add Task</button>
-            </form>
-            <div> Project Completion:  </div>
-            <div className="project-completion">
+            <div className="create-task">
+                <div className="create-task-text">
+                    <button onClick={handleCreateTaskClick}>Create Task</button>
+                </div>
+                <Popup open={isPopupOpen} closeOnDocumentClick onClose={() => setIsPopupOpen(false)}>
+                    <div className="taskform-popup-content">
+                        <form onSubmit={handleSubmit} className="taskform-popup-form">
+                            <div className="taskform-popup-header">Create Task</div>
+                            <div>
+                                <input type="text" placeholder="Task Name" value={title} onChange={(e) => setTitle(e.target.value)} />
+                            </div>
+                            <div>
+                                <input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
+                            </div>
+                            <div>
+                                <input type="text" placeholder="Expected Completion Time" value={expectedTime} onChange={(e) => setExpectedTime(e.target.value)} />
+                            </div>
+                            <div className="taskform-popup-footer">
+                                <button type="submit" className="taskform-popup-button">Add Task</button>
+                            </div>
+                        </form>
+                        <button className="taskform-popup-button" onClick={() => setIsPopupOpen(false)}>Exit</button>
+                    </div>
+                </Popup>
+            </div>
+            <div className="project-completion-text"> Project Completion:  </div>
+            <div className={`${projectCompletionPercentage() === '100%' ? 'gold' : 'project-completion'}`}>
                 {projectCompletionPercentage()}
             </div>
         </div>
