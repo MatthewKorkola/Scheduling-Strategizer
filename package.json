@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-react": "^7.34.0"
+    "eslint-plugin-react": "^7.34.0",
+    "worker-loader": "^3.0.8"
   }
 }

@@ -40,13 +40,13 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
             <div > <button onClick={handleCreateProject}>Create Project</button> </div>
             <div className="project-actions">
                 <select onChange={(e) => selectProject(e.target.value)}>
-                    <option></option>
+                    <option>Select Project</option>
                     {projects.map(project => (
                         <option key={project.name} value={project.name} selected={currentProject && currentProject.name === project.name}>{project.name}</option>
                     ))}
                 </select>
                 <select onChange={(e) => deleteProject(e.target.value)}>
-                    <option></option>
+                    <option>Delete Project</option>
                     {projects.map(project => (
                         <option key={project.name} value={project.name}>{project.name}</option>
                     ))}
@@ -61,12 +61,21 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
                         <form onSubmit={handleSubmit} className="taskform-popup-form">
                             <div className="taskform-popup-header">Create Task</div>
                             <div>
+                                <label>
+                                    Task Name
+                                </label>
                                 <input type="text" placeholder="Task Name" value={title} onChange={(e) => setTitle(e.target.value)} />
                             </div>
                             <div>
+                                <label>
+                                    Deadline
+                                </label>
                                 <input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
                             </div>
                             <div>
+                                <label>
+                                    Expected Completion Time
+                                </label>
                                 <input type="text" placeholder="Expected Completion Time" value={expectedTime} onChange={(e) => setExpectedTime(e.target.value)} />
                             </div>
                             <div className="taskform-popup-footer">
@@ -91,7 +100,7 @@ TaskForm.propTypes = {
     selectProject: PropTypes.func.isRequired,
     deleteProject: PropTypes.func.isRequired,
     currentProject: PropTypes.object, // Current project object
-    projectCompletionPercentage: PropTypes.string.isRequired, // Project completion percentage text
+    projectCompletionPercentage: PropTypes.func.isRequired, // Project completion percentage text
     projects: PropTypes.array.isRequired
 };
 

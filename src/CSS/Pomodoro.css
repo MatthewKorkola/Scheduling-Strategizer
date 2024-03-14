@@ -63,7 +63,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
   border: 2px solid black;
   width: 400px;
-  height: 350px;
+  min-height: 350px;
 }
 
 .popup-header {

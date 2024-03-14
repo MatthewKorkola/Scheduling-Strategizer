@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../CSS/Pomodoro.css';
 import alarmSound from '../sounds/alarm.wav';
 import { Popup } from 'reactjs-popup';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import { default as TimerWorker } from 'worker-loader!../timerWorker.js'; // Import the web worker file
 
 const Pomodoro = () => {
     const [timer, setTimer] = useState(1500); // Initial timer value: 25 minutes in seconds
@@ -15,28 +17,81 @@ const Pomodoro = () => {
     const [pomodoroDuration, setPomodoroDuration] = useState(25);
     const [shortBreakDuration, setShortBreakDuration] = useState(5);
     const [longBreakDuration, setLongBreakDuration] = useState(15);
+    const [worker, setWorker] = useState(null); // Declare worker state variable
 
     useEffect(() => {
-        let intervalId;
+        const workerInstance = new TimerWorker();
 
-        if (isRunning && !isPopupOpen) {
-            intervalId = setInterval(() => {
+        workerInstance.addEventListener('message', event => {
+            const handleSkip = () => {
+                // Reset timer to the starting value of the next timer in the cycle
+                switch (timerType) {
+                    case 'Pomodoro':
+                        if (sessionCount < numShortBreaks) {
+                            setTimer(shortBreakDuration * 60); // 5 minutes for short break
+                            setTimerType('Short Break');
+                        } else {
+                            setTimer(longBreakDuration * 60);
+                            setTimerType('Long Break');
+                        }
+                        break;
+                    case 'Short Break':
+                        setTimer(pomodoroDuration * 60); // 25 minutes for work
+                        setTimerType('Pomodoro');
+                        break;
+                    case 'Long Break':
+                        setTimer(pomodoroDuration * 60); // 25 minutes for work
+                        setTimerType('Pomodoro');
+                        break;
+                    default:
+                        break;
+                }
+                // Increment sessionCount if transitioning from a work session to a short break
+                if (timerType === 'Pomodoro' && sessionCount < numShortBreaks) {
+                    setSessionCount(sessionCount + 1);
+                }
+                // Pause the timer
+                if (!isTimerAutomatic) {
+                    setIsRunning(false);
+                } else {
+                    setIsRunning(true);
+                }
+                // Check if we are transitioning to a long break and reset the session count
+                if (timerType === 'Pomodoro' && sessionCount === numShortBreaks) {
+                    setSessionCount(0);
+                }
+            };
+
+            if (event.data.type === 'tick') {
                 setTimer(prevTimer => {
                     if (prevTimer > 0) {
                         return prevTimer - 1;
                     } else {
+                        // Timer has reached zero, switch to the next timer
                         if (isSoundEnabled) playSoundEffect();
-                        // Timer reached zero, switch timer type and reset timer value
                         handleSkip();
+                        return prevTimer;
                     }
                 });
-            }, 1000);
-        } else {
-            clearInterval(intervalId);
-        }
+            }
+        });
 
-        return () => clearInterval(intervalId); // Cleanup function to clear the interval
-    }, [isRunning, timerType, isSoundEnabled, isPopupOpen]);
+        setWorker(workerInstance);
+
+        return () => {
+            workerInstance.terminate();
+        };
+    }, [timerType, sessionCount, numShortBreaks, pomodoroDuration, shortBreakDuration, longBreakDuration, isTimerAutomatic]);
+
+
+
+    useEffect(() => {
+        if (isRunning && worker) {
+            worker.postMessage({ type: 'start', isSoundEnabled, isPopupOpen });
+        } else if (!isRunning && worker) {
+            worker.postMessage({ type: 'stop' });
+        }
+    }, [isRunning, isSoundEnabled, isPopupOpen, worker]);
 
 
     const formatTime = (time) => {
@@ -47,6 +102,14 @@ const Pomodoro = () => {
 
     const handleStartPause = () => {
         setIsRunning(prevState => !prevState);
+
+        if (!isRunning && worker) {
+        // Start the timer if it's not already running
+        worker.postMessage({ type: 'start', isSoundEnabled, isPopupOpen });
+        } else if (isRunning && worker) {
+            // Stop the timer if it's already running
+            worker.postMessage({ type: 'stop' });
+        }
     };
 
     const handleSkip = () => {
@@ -154,7 +217,7 @@ const Pomodoro = () => {
                                 <div className="popup-header">Settings
                                 <div className="note-text">
                                     <label>
-                                        (changes update next timer iteration)
+                                        (changes update on next timer iteration)
                                     </label>
                                 </div>
                                 </div>
