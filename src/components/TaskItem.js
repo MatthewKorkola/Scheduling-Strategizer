@@ -23,7 +23,7 @@ const TaskItem = ({ task, markTaskCompleted, deleteTask }) => {
             <div className="task-content">
                 <h3>{title}</h3>
                 <p>Deadline: {deadline}</p>
-                <p>ETA: {expectedTime}</p>
+                <p>ETA: {expectedTime} Hours</p>
             </div>
             <div className="task-buttons">
                 <button className="delete-button" onClick={handleDeleteTask}>Delete Task</button>

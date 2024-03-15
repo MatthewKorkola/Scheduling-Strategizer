@@ -23,7 +23,7 @@
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px; /* Add margin bottom to create space between task items */
-    width: 250px;
+    width: 350px;
 }
 
 .task-item:hover{
@@ -67,7 +67,7 @@
 }
 
 .task-buttons .complete-button:hover {
-    background-color: #F5B409;
+    background-color: #D3BC19;
 }
 
 .task-buttons .delete-button {
@@ -77,7 +77,7 @@
 }
 
 .task-buttons .delete-button:hover {
-    background-color: red;
+    background-color: #5A1C01;
 }
 
 

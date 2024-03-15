@@ -16,7 +16,16 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
             alert('Please select a project first.');
             return;
         }
-        addTask({ title, deadline, completed: false, expectedTime });
+        // Modify expectedTime before adding the task
+        let modifiedExpectedTime = expectedTime;
+        if (modifiedExpectedTime.endsWith('.')) {
+            // Add '0' to the end of a trailing decimal point
+            modifiedExpectedTime += '0';
+        } else if (!modifiedExpectedTime.includes('.')){
+            modifiedExpectedTime += '.0'
+        }
+
+        addTask({ title, deadline, completed: false, expectedTime: modifiedExpectedTime });
         setTitle('');
         setDeadline('');
         setExpectedTime('');
@@ -33,6 +42,21 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
     const handleCreateTaskClick = () => {
         setIsPopupOpen(true);
     }
+
+    const handleExpectedTimeInputChange = (e) => {
+        let inputValue = e.target.value;
+
+        // Remove non-numeric characters except decimal points
+        inputValue = inputValue.replace(/[^0-9.]/g, '');
+
+        // Ensure the input doesn't start with a decimal point
+        inputValue = inputValue.replace(/^\./, '');
+
+        // Ensure there's at most one decimal point
+        inputValue = inputValue.replace(/(\.\d*)\./, '$1');
+
+        setExpectedTime(inputValue);
+    };
 
     return (
         <div className="task-form">
@@ -64,7 +88,7 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
                                 <label>
                                     Task Name
                                 </label>
-                                <input type="text" placeholder="Task Name" value={title} onChange={(e) => setTitle(e.target.value)} />
+                                <input type="text" placeholder="16 characters maximum" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={16}/>
                             </div>
                             <div>
                                 <label>
@@ -74,9 +98,9 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
                             </div>
                             <div>
                                 <label>
-                                    Expected Completion Time
+                                    Expected Completion Time (hours)
                                 </label>
-                                <input type="text" placeholder="Expected Completion Time" value={expectedTime} onChange={(e) => setExpectedTime(e.target.value)} />
+                                <input type="text" placeholder="5 characters maximum; numeric input only, including decimals" value={expectedTime} onChange={(handleExpectedTimeInputChange)} maxLength={5} />
                             </div>
                             <div className="taskform-popup-footer">
                                 <button type="submit" className="taskform-popup-button">Add Task</button>
