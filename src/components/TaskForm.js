@@ -2,12 +2,23 @@ import React, { useState } from 'react';
 import '../CSS/TaskForm.css';
 import PropTypes from 'prop-types';
 import { Popup } from 'reactjs-popup';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 const TaskForm = ({ addTask, createProject, selectProject, deleteProject, currentProject, projectCompletionPercentage, projects }) => {
     const [title, setTitle] = useState('');
     const [deadline, setDeadline] = useState('');
     const [expectedTime, setExpectedTime] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [selectedProject, setSelectedProject] = useState(null);
+
+    const handleProjectSelect = (projectName) => {
+        setSelectedProject(projectName);
+        selectProject(projectName);
+    };
+
+    const handleProjectDelete = (projectName) => {
+        deleteProject(projectName);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -63,18 +74,57 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
         <div className="project-task-manager"> Project and Task Manager </div>
             <div > <button onClick={handleCreateProject}>Create Project</button> </div>
             <div className="project-actions">
-                <select onChange={(e) => selectProject(e.target.value)}>
-                    <option>Select Project</option>
-                    {projects.map(project => (
-                        <option key={project.name} value={project.name} selected={currentProject && currentProject.name === project.name}>{project.name}</option>
-                    ))}
-                </select>
-                <select onChange={(e) => deleteProject(e.target.value)}>
-                    <option>Delete Project</option>
-                    {projects.map(project => (
-                        <option key={project.name} value={project.name}>{project.name}</option>
-                    ))}
-                </select>
+                <DropdownMenu.Root>
+                    <DropdownMenu.Trigger asChild>
+                        <button>
+                            Select Project
+                        </button>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Portal>
+                        <DropdownMenu.Content className="DropdownMenuContent">
+                            {projects.length === 0 ? (
+                                <DropdownMenu.Item className="DropdownMenuItem">no projects</DropdownMenu.Item>
+                            ) : (
+                                <>
+                                    {projects.map(project => (
+                                        <DropdownMenu.Item key={project.name} onSelect={() => handleProjectSelect(project.name)} className="DropdownMenuItem">
+                                            {project.name}
+                                        </DropdownMenu.Item>
+                                    ))}
+                                    <DropdownMenu.Separator className="DropdownMenuSeparator"/>
+                                    <DropdownMenu.Arrow className="DropdownMenuArrow"/>
+                                </>
+                            )}
+                        </DropdownMenu.Content>
+                    </DropdownMenu.Portal>
+                </DropdownMenu.Root>
+
+
+
+                <DropdownMenu.Root>
+                    <DropdownMenu.Trigger asChild>
+                        <button>
+                            Delete Project
+                        </button>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Portal>
+                        <DropdownMenu.Content className="DropdownMenuContent">
+                            {projects.length === 0 ? (
+                                <DropdownMenu.Item className="DropdownMenuItem">no projects</DropdownMenu.Item>
+                            ) : (
+                                <>
+                                    {projects.map(project => (
+                                        <DropdownMenu.Item key={project.name} onSelect={() => handleProjectDelete(project.name)} className="DropdownMenuItem">
+                                            {project.name}
+                                        </DropdownMenu.Item>
+                                    ))}
+                                    <DropdownMenu.Separator className="DropdownMenuSeparator"/>
+                                    <DropdownMenu.Arrow className="DropdownMenuArrow"/>
+                                </>
+                            )}
+                        </DropdownMenu.Content>
+                    </DropdownMenu.Portal>
+                </DropdownMenu.Root>
             </div>
             <div className="create-task">
                 <div className="create-task-text">
