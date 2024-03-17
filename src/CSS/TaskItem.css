@@ -18,16 +18,12 @@
     display: inline-block;
     margin-right: 10px;
     margin-top: 20px;
-    background-color: seagreen;
+    background-color: #039564;
     border: 2px solid black;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px; /* Add margin bottom to create space between task items */
     width: 350px;
-}
-
-.task-item:hover{
-    background-color: lightgreen;
 }
 
 .task-item.completed {
@@ -82,7 +78,7 @@
 
 
 .task-item:hover {
-    background-color: lightgreen; /* Change color gradually on hover */
+    background-color: #0BB57C; /* Change color gradually on hover */
 }
 
 .task-content {

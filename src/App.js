@@ -19,8 +19,8 @@ function App() {
             alert('Please select a project first.');
             return;
         }
-        if (tasks.length >= 20) {
-          alert('You have reached the maximum limit of 20 tasks. Please delete a task before creating a new one.')
+        if (tasks.length >= 30) {
+          alert('You have reached the maximum limit of tasks. Please delete a task before creating a new one.')
           return;
         }
 
@@ -32,8 +32,8 @@ function App() {
             alert('Project name must not be empty.');
             return;
         }
-        if (projects.length >= 20) {
-            alert('You have reached the maximum limit of 20 projects. Please delete a project before creating a new one.');
+        if (projects.length >= 9) {
+            alert('You have reached the maximum limit of projects. Please delete a project before creating a new one.');
             return;
         }
         if (projects.some(project => project.name === newProjectName)) {

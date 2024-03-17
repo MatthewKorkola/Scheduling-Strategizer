@@ -4,22 +4,21 @@
   font-size: 32px; /* Font size for timer type */
   margin-bottom: 10px; /* Bottom margin for spacing */
   text-shadow: 
-    -1px -1px 0 white,  
-    1px -1px 0 white,
-    -1px 1px 0 white,
-    1px 1px 0 white;
+    -1px -1px 0 darkblue,  
+    1px -1px 0 lightgreen,
+    -1px 1px 0 lightblue,
+    1px 1px 0 #19B6D3;
 }
 
 .pomodoro-section .timer {
   font-size: 90px; /* Font size for timer */
   font-weight: bold; /* Bold font for emphasis */
   margin-bottom: 5px; /* Bottom margin for spacing */
-  margin-top: 5px;
   text-shadow: 
-    -1px -1px 0 #009900,  
-    1px -1px 0 #009900,
-    -1px 1px 0 #009900,
-    1px 1px 0 #009900; /* Green outline */
+    -1px -1px 0 darkblue,  
+    1px -1px 0 lightblue,
+    -1px 1px 0 lightblue,
+    1px 1px 0 lightblue;
 }
 
 .pomodoro-section .buttons {
@@ -32,14 +31,14 @@
   font-size: 16px; /* Font size for buttons */
   cursor: pointer; /* Cursor style for buttons */
   border-radius: 5px; /* Rounded corners for buttons */
-  background-color: #007bff; /* Button background color */
+  background-color: #0D78D3; /* Button background color */
   color: #fff; /* Button text color */
   border: 2px solid black;
   transition: background-color 0.3s ease;
 }
 
 .pomodoro-section .buttons button:hover {
-  background-color: #0056b3; /* Button background color on hover */
+  background-color: #6fa8dc; /* Button background color on hover */
 }
 
 /* Popup styles */

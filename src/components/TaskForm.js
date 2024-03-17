@@ -3,6 +3,9 @@ import '../CSS/TaskForm.css';
 import PropTypes from 'prop-types';
 import { Popup } from 'reactjs-popup';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as Dialog from '@radix-ui/react-dialog';
+import { Cross2Icon } from '@radix-ui/react-icons';
+
 
 const TaskForm = ({ addTask, createProject, selectProject, deleteProject, currentProject, projectCompletionPercentage, projects }) => {
     const [title, setTitle] = useState('');
@@ -10,6 +13,8 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
     const [expectedTime, setExpectedTime] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState(null);
+    const [projectName, setProjectName] = useState('');
+    const [error, setError] = useState('');
 
     const handleProjectSelect = (projectName) => {
         setSelectedProject(projectName);
@@ -43,12 +48,15 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
         setIsPopupOpen(false)
     }
 
-    const handleCreateProject = () => {
-        const newProjectName = prompt("Enter new project name:");
-        if (newProjectName !== null) {
-            createProject(newProjectName);
+    const handleCreateProjectSubmit = (e) => {
+        e.preventDefault();
+        if (!projectName.trim()) {
+          setError('Please enter a project name.');
+          return;
         }
-    }
+        createProject(projectName);
+        setProjectName('');
+      };
 
     const handleCreateTaskClick = () => {
         setIsPopupOpen(true);
@@ -72,7 +80,47 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
     return (
         <div className="task-form">
         <div className="project-task-manager"> Project and Task Manager </div>
-            <div > <button onClick={handleCreateProject}>Create Project</button> </div>
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <button >Create Project</button>
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Overlay className="DialogOverlay" />
+                <Dialog.Content className="DialogContent">
+                  <Dialog.Title className="DialogTitle">Create New Project</Dialog.Title>
+                  <Dialog.Description className="DialogDescription">
+                    Enter the name for your new project.
+                  </Dialog.Description>
+                  <form onSubmit={handleCreateProjectSubmit}>
+                    <fieldset className="Fieldset">
+                      <label className="Label" htmlFor="projectName">
+                        Project Name
+                      </label>
+                      <input
+                        className="Input"
+                        id="projectName"
+                        type="text"
+                        placeholder="16 characters maximum"
+                        value={projectName}
+                        onChange={(e) => setProjectName(e.target.value)}
+                        maxLength={16}
+                        required
+                      />
+                      {error && <p className="Error">{error}</p>}
+                    </fieldset>
+                    <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
+                      <button type="submit" className="Button green">Create</button>
+                    </div>
+                  </form>
+                  <Dialog.Close asChild>
+                    <button className="IconButton" aria-label="Close">
+                      <Cross2Icon />
+                    </button>
+                  </Dialog.Close>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
+
             <div className="project-actions">
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
@@ -98,8 +146,6 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
                         </DropdownMenu.Content>
                     </DropdownMenu.Portal>
                 </DropdownMenu.Root>
-
-
 
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
