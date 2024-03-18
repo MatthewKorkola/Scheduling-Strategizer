@@ -1,3 +1,8 @@
+@import '@radix-ui/colors/violet.css';
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/mauve.css';
+
 .task-text {
 	margin: 0;
     padding: 0;
@@ -8,4 +13,47 @@
         1px -1px 0 lightblue,
         -1px 1px 0 lightblue,
         1px 1px 0 lightblue;
+}
+
+.task-list button {
+	padding: 10px 20px;
+    background-color: #0F7492;
+    color: #fff;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.task-list button:hover {
+	background-color: #1397BE;
+}
+
+.DropdownMenuContent {
+    padding: 8px 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+}
+
+.DropdownMenuItem {
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--violet-11);
+}
+
+.DropdownMenuItem:hover {
+    background-color: #f4f4f4;
+}
+
+.DropdownMenuNotItem {
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: darkred;
 }

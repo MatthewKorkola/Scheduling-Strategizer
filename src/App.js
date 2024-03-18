@@ -96,7 +96,37 @@ function App() {
       const percentage = Math.round((completedTasks / totalTasks) * 100);
 
       return `${percentage}%`;
-  };
+    };
+
+    const sortTasks = (sortOption) => {
+        // Implement sorting logic based on the selected option
+        if (sortOption === 'earliestDeadline') {
+            const sortedTasks = [...tasks].sort((a, b) => {
+                return new Date(a.deadline) - new Date(b.deadline);
+            });
+            setTasks(sortedTasks);
+        } else if (sortOption === 'latestDeadline') {
+            const sortedTasks = [...tasks].sort((a, b) => {
+                return new Date(b.deadline) - new Date(a.deadline);
+            });
+            setTasks(sortedTasks);
+        } else if (sortOption === 'shortestTime') {
+            const sortedTasks = [...tasks].sort((a, b) => {
+                return parseFloat(a.expectedTime) - parseFloat(b.expectedTime);
+            });
+            setTasks(sortedTasks);
+        } else if (sortOption === 'longestTime') {
+            const sortedTasks = [...tasks].sort((a, b) => {
+                return parseFloat(b.expectedTime) - parseFloat(a.expectedTime);
+            });
+            setTasks(sortedTasks);
+        } else if (sortOption === 'completeness') {
+            const sortedTasks = [...tasks].sort((a, b) => {
+                return a.completed === b.completed ? 0 : a.completed ? 1 : -1;
+            });
+            setTasks(sortedTasks);
+        }
+    };
 
     return (
         <div className="App">
@@ -123,6 +153,7 @@ function App() {
                   currentProject={currentProject}
                   markTaskCompleted={markTaskCompleted}
                   deleteTask={deleteTask}
+                  sortTasks={sortTasks}
                 />
             </div>
         </div>
