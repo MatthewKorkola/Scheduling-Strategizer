@@ -99,34 +99,48 @@ function App() {
     };
 
     const sortTasks = (sortOption) => {
-        // Implement sorting logic based on the selected option
-        if (sortOption === 'earliestDeadline') {
-            const sortedTasks = [...tasks].sort((a, b) => {
-                return new Date(a.deadline) - new Date(b.deadline);
-            });
-            setTasks(sortedTasks);
-        } else if (sortOption === 'latestDeadline') {
-            const sortedTasks = [...tasks].sort((a, b) => {
-                return new Date(b.deadline) - new Date(a.deadline);
-            });
-            setTasks(sortedTasks);
-        } else if (sortOption === 'shortestTime') {
-            const sortedTasks = [...tasks].sort((a, b) => {
-                return parseFloat(a.expectedTime) - parseFloat(b.expectedTime);
-            });
-            setTasks(sortedTasks);
-        } else if (sortOption === 'longestTime') {
-            const sortedTasks = [...tasks].sort((a, b) => {
-                return parseFloat(b.expectedTime) - parseFloat(a.expectedTime);
-            });
-            setTasks(sortedTasks);
-        } else if (sortOption === 'completeness') {
-            const sortedTasks = [...tasks].sort((a, b) => {
-                return a.completed === b.completed ? 0 : a.completed ? 1 : -1;
-            });
-            setTasks(sortedTasks);
-        }
-    };
+      // Filter tasks based on the current project for sorting
+      const filteredTasks = currentProject
+          ? tasks.filter(task => task.project === currentProject.name)
+          : [...tasks]; // If no current project selected, use all tasks
+
+      // Implement sorting logic based on the selected option
+      let sortedTasks;
+      if (sortOption === 'earliestDeadline') {
+          sortedTasks = [...filteredTasks].sort((a, b) => {
+              return new Date(a.deadline) - new Date(b.deadline);
+          });
+      } else if (sortOption === 'latestDeadline') {
+          sortedTasks = [...filteredTasks].sort((a, b) => {
+              return new Date(b.deadline) - new Date(a.deadline);
+          });
+      } else if (sortOption === 'shortestTime') {
+          sortedTasks = [...filteredTasks].sort((a, b) => {
+              return parseFloat(a.expectedTime) - parseFloat(b.expectedTime);
+          });
+      } else if (sortOption === 'longestTime') {
+          sortedTasks = [...filteredTasks].sort((a, b) => {
+              return parseFloat(b.expectedTime) - parseFloat(a.expectedTime);
+          });
+      } else if (sortOption === 'completeness') {
+          sortedTasks = [...filteredTasks].sort((a, b) => {
+              return a.completed === b.completed ? 0 : a.completed ? 1 : -1;
+          });
+      }
+
+    // Update the state with the sorted tasks
+    setTasks(currentTasks => {
+        // Map over the original tasks and replace only the tasks belonging to the current project with the sorted tasks
+        return tasks.map(task => {
+            if (currentProject && task.project === currentProject.name) {
+                return sortedTasks.shift(); // Replace the task with the first task in the sorted array
+            } else {
+                return task; // Keep tasks from other projects unchanged
+            }
+        });
+    });
+};
+
 
     return (
         <div className="App">
