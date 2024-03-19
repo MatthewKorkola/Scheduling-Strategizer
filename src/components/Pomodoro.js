@@ -6,6 +6,11 @@ import { Popup } from 'reactjs-popup';
 import { default as TimerWorker } from 'worker-loader!../timerWorker.js'; // Import the web worker file
 
 const Pomodoro = () => {
+    // Create a new Audio object with the sound effect file
+    const audio = new Audio(alarmSound);
+    // Set the preload attribute to "auto"
+    audio.preload = "auto";
+    
     const [timer, setTimer] = useState(1500); // Initial timer value: 25 minutes in seconds
     const [sessionCount, setSessionCount] = useState(0); // Track Pomodoro sessions
     const [timerType, setTimerType] = useState('Pomodoro'); // Initial timer type: work
@@ -152,10 +157,6 @@ const Pomodoro = () => {
     };
 
     const playSoundEffect = () => {
-        // Create a new Audio object with the sound effect file
-        const audio = new Audio(alarmSound);
-        // Set the preload attribute to "auto"
-        audio.preload = "auto";
         // Play the sound effect
         audio.play();
     };
