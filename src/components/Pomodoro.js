@@ -154,6 +154,8 @@ const Pomodoro = () => {
     const playSoundEffect = () => {
         // Create a new Audio object with the sound effect file
         const audio = new Audio(alarmSound);
+        // Set the preload attribute to "auto"
+        audio.preload = "auto";
         // Play the sound effect
         audio.play();
     };
