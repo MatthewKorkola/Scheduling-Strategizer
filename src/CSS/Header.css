@@ -1,0 +1,91 @@
+@import '@radix-ui/colors/violet.css';
+@import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/mauve.css';
+
+.authentication .button {
+  margin-right: 10px; /* Right margin between buttons */
+  padding: 10px 20px; /* Padding for buttons */
+  font-size: 16px; /* Font size for buttons */
+  cursor: pointer; /* Cursor style for buttons */
+  border-radius: 5px; /* Rounded corners for buttons */
+  background-color: #0D78D3; /* Button background color */
+  color: #fff; /* Button text color */
+  border: 2px solid black;
+  transition: background-color 0.3s ease;
+}
+
+.authentication .button:hover {
+  background-color: #6fa8dc; /* Button background color on hover */
+}
+
+
+
+.DialogOverlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
+}
+
+.DialogContent {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  max-width: 90vw;
+}
+
+.DialogTitle {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.DialogDescription {
+  margin-bottom: 20px;
+}
+
+.DialogContent form {
+  display: flex;
+  flex-direction: column;
+}
+
+.DialogContent .Fieldset {
+  margin-bottom: 20px;
+}
+
+.DialogContent .Label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.DialogContent .Input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.DialogContent .Button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #0D78D3;
+  color: #fff;
+  border: 2px solid black;
+  transition: background-color 0.3s ease;
+}
+
+.DialogContent .Button:hover {
+  background-color: #6fa8dc;
+}
+
+.DialogContent .IconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

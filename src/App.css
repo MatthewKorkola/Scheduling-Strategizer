@@ -7,13 +7,18 @@
   padding: 0;
   background-color: #1991D3;
   min-height: 8vh; /* 15% of viewport height */
-  border-bottom: 2px solid black; /* Black border */
   font-size: 45px;
   text-shadow: 
     -1px -1px 0 darkblue,  
     1px -1px 0 lightgreen,
     -1px 1px 0 lightblue,
     1px 1px 0 #19B6D3;
+}
+
+.header-section .authentication {
+  background-color: #1991D3;
+  min-height: 8vh; /* 15% of viewport height */
+  border-bottom: 2px solid black; /* Black border */
 }
 
 .pomodoro-section {
