@@ -14,6 +14,9 @@ const Header = () => {
 
     const handleSignUp = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
+        // Reset input fields
+        setSignUpUsername('');
+        setSignUpPassword('');
         try {
             await axios.post('http://localhost:5000/api/signup', { username: signUpUsername, password: signUpPassword });
             alert('Sign up successful!');
@@ -34,6 +37,9 @@ const Header = () => {
                 setLoggedIn(true);
                 setLoggedInUsername(loginUsername);
                 alert('Login successful!');
+                // Reset input fields
+                setLoginUsername("");
+                setLoginPassword("");
             } else {
                 alert('Invalid username or password.');
             }
@@ -53,7 +59,7 @@ const Header = () => {
             <div className="authentication">
                 {loggedIn ? (
                     <div>
-                        <div>Welcome, {loggedInUsername}</div>
+                        <div className="welcome-text">Welcome, {loggedInUsername}</div>
                         <button className="button" onClick={handleLogout}>Logout</button>
                     </div>
                 ) : (
@@ -99,7 +105,10 @@ const Header = () => {
                                         <button type="submit" className="Button green">Sign Up</button>
                                     </form>
                                     <Dialog.Close asChild>
-                                        <button className="IconButton" aria-label="Close">
+                                        <button className="IconButton" aria-label="Close" onClick={() => {
+                                            setSignUpUsername('');
+                                            setSignUpPassword('');
+                                        }}>
                                             <Cross2Icon />
                                         </button>
                                     </Dialog.Close>
@@ -148,7 +157,10 @@ const Header = () => {
                                         <button type="submit" className="Button green">Login</button>
                                     </form>
                                     <Dialog.Close asChild>
-                                        <button className="IconButton" aria-label="Close">
+                                        <button className="IconButton" aria-label="Close" onClick={() => {
+                                            setLoginUsername('');
+                                            setLoginPassword('');
+                                        }}>
                                             <Cross2Icon />
                                         </button>
                                     </Dialog.Close>

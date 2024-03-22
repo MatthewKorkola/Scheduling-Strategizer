@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
         }
 
         // Insert user into the database
-        const newUser = await pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', [username, password]);
+        const newUser = await pool.query('INSERT INTO Users (username, password) VALUES ($1, $2) RETURNING *', [username, password]);
 
         // Respond with the newly created user
         res.json(newUser.rows[0]);

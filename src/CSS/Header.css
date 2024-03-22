@@ -9,14 +9,15 @@
   font-size: 16px; /* Font size for buttons */
   cursor: pointer; /* Cursor style for buttons */
   border-radius: 5px; /* Rounded corners for buttons */
-  background-color: #0D78D3; /* Button background color */
+  background-color: #2BA798; /* Button background color */
   color: #fff; /* Button text color */
   border: 2px solid black;
   transition: background-color 0.3s ease;
+  margin-bottom: 10px;
 }
 
 .authentication .button:hover {
-  background-color: #6fa8dc; /* Button background color on hover */
+  background-color: #3FC3B3; /* Button background color on hover */
 }
 
 
@@ -88,4 +89,19 @@
   position: absolute;
   top: 10px;
   right: 10px;
+}
+
+
+.welcome-text {
+  margin: 0;
+  padding: 0;
+  background-color: #1991D3;
+  font-size: 25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-shadow: 
+      -0.5px -0.5px 0 darkblue,  
+      0.5px -0.5px 0 lightblue,
+      -0.5px 0.5px 0 lightblue,
+      0.5px 0.5px 0 lightblue;
 }
