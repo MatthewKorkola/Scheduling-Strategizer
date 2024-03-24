@@ -9,8 +9,8 @@ const Header = () => {
     const [signUpPassword, setSignUpPassword] = useState('');
     const [loginUsername, setLoginUsername] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [loggedInUsername, setLoggedInUsername] = useState('');
+    const [loggedIn, setLoggedIn] = useState(() => sessionStorage.getItem('loggedIn') === 'true');
+    const [loggedInUsername, setLoggedInUsername] = useState(() => sessionStorage.getItem('loggedInUsername') || '');
 
     const handleSignUp = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
@@ -36,6 +36,8 @@ const Header = () => {
             if (response.data.success) {
                 setLoggedIn(true);
                 setLoggedInUsername(loginUsername);
+                sessionStorage.setItem("loggedIn", "true");
+                sessionStorage.setItem("loggedInUsername", loginUsername);
                 alert('Login successful!');
                 // Reset input fields
                 setLoginUsername("");
@@ -51,6 +53,8 @@ const Header = () => {
     const handleLogout = () => {
         setLoggedIn(false);
         setLoggedInUsername('');
+        sessionStorage.removeItem("loggedIn");
+        sessionStorage.removeItem("loggedInUsername");
     };
 
     return (
@@ -123,7 +127,7 @@ const Header = () => {
                                     <Dialog.Title className="DialogTitle">Login</Dialog.Title>
                                     <Dialog.Description className="DialogDescription">
                                         Enter your username and password to log in. <br/>
-                                        All projects and tasks created while logged in are saved.
+                                        All created projects and tasks are saved to your account.
                                     </Dialog.Description>
                                     <form onSubmit={handleLogin}>
                                         <fieldset className="Fieldset">

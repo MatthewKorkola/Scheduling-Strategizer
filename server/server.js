@@ -12,10 +12,18 @@ app.use(cors());
 const signupRouter = require('./api/signup');
 const loginRouter = require('./api/login');
 const createProjectRouter = require('./api/createProject');
+const addTaskRouter = require('./api/addTask');
+const markTaskCompletedRouter = require('./api/markTaskCompleted');
+const deleteTaskRouter = require('./api/deleteTask');
+const deleteProjectRouter = require('./api/deleteProject');
 
 app.use('/api/signup', signupRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/createProject', createProjectRouter);
+app.use('/api/addTask', addTaskRouter);
+app.use('/api/markTaskCompleted', markTaskCompletedRouter);
+app.use('/api/deleteTask', deleteTaskRouter);
+app.use('/api/deleteProject', deleteProjectRouter);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

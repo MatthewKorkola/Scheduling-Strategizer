@@ -4,6 +4,7 @@ import Pomodoro from './components/Pomodoro'
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import './App.css';
+import axios from 'axios';
 
 function App() {
     const [tasks, setTasks] = useState([
@@ -14,20 +15,52 @@ function App() {
     const [projects, setProjects] = useState([]); // State for projects
     const [currentProject, setCurrentProject] = useState(null); // State for current project
 
-    const addTask = (newTask) => {
+    const addTask = async (newTask) => {
         if (!currentProject) {
             alert('Please select a project first.');
             return;
         }
         if (tasks.length >= 30) {
-          alert('You have reached the maximum limit of tasks. Please delete a task before creating a new one.')
-          return;
+            alert('You have reached the maximum limit of tasks. Please delete a task before creating a new one.')
+            return;
         }
 
-        setTasks([...tasks, { id: tasks.length + 1, ...newTask, project: currentProject.name }]);
+        try {
+            // Send a request to the server to add the task
+            const response = await axios.post('http://localhost:5000/api/addTask', {
+                taskDetails: { ...newTask, project: currentProject.name },
+                loggedInUsername: sessionStorage.getItem('loggedInUsername')
+            });
+
+            // If the task is successfully added on the server, update the state with the new task
+            // const addedTask = response.data;
+            // const { taskname, deadline, completed, expectedtime } = addedTask; // Extract necessary properties
+            // const formattedTask = {
+            //     id: tasks.length + 1, // Generate a unique ID
+            //     title: taskname,
+            //     deadline: deadline,
+            //     completed: completed,
+            //     expectedTime: expectedtime,
+            //     project: currentProject.name
+            // };
+            // setTasks([...tasks, addedTask]);
+            const addedTask = response.data;
+            const addedTaskID = addedTask.taskid;
+            //alert(addedTaskID);
+            //alert(JSON.stringify(addedTaskID));
+            setTasks([...tasks, { id: addedTaskID, title: addedTask.taskname, ...newTask, project: currentProject.name }]);
+
+        } catch (error) {
+            console.error('Error adding task:', error);
+            alert('Failed to add task. Please try again later.');
+        }
     }
 
-    const createProject = (newProjectName) => {
+    const createProject = async (newProjectName) => {
+        if (sessionStorage.getItem("loggedIn") === null) {
+            alert("Log in to create a project.")
+            return;
+        }
         if (!newProjectName.trim()) {
             alert('Project name must not be empty.');
             return;
@@ -40,9 +73,27 @@ function App() {
             alert('Project name must be unique.');
             return;
         }
-        const newProject = { name: newProjectName, tasks: [] };
-        setProjects([...projects, newProject]);
-        setCurrentProject(newProject); // Set the newly created project as the current project
+
+        try {
+            // Send a request to the server to create the project
+            const response = await axios.post('http://localhost:5000/api/createProject', {
+                projectDetails: { name: newProjectName },
+                loggedInUsername: sessionStorage.getItem('loggedInUsername')
+            });
+
+            // If the project is successfully created on the server, update the state with the new project
+            const newProjectData = response.data; // Data received from the server
+            const newProject = { 
+                name: newProjectData.projectname, // Extract project name from server response
+                tasks: [] // Assuming tasks will be managed separately
+            };
+            //alert(JSON.stringify(response.data));
+            setProjects([...projects, newProject]);
+            setCurrentProject(newProject); // Set the newly created project as the current project
+        } catch (error) {
+            console.error('Error creating project:', error);
+            alert('Failed to create project. Please try again later.');
+        }
     }
 
     const selectProject = (projectName) => {
@@ -50,34 +101,75 @@ function App() {
         setCurrentProject(project ? project: currentProject);
     }
 
-    const deleteProject = (projectName) => {
+    const deleteProject = async (projectName) => {
         if (!projectName) {
             // If the user cancels, simply return without further action
             return;
         }
         if (window.confirm(`Are you sure you want to delete the project "${projectName}"?`)) {
-            const updatedProjects = projects.filter(project => project.name !== projectName);
-            setProjects(updatedProjects);
+            try {
+                // Send a request to the server to delete the project
+                await axios.post('http://localhost:5000/api/deleteProject', {
+                    loggedInUsername: sessionStorage.getItem('loggedInUsername'),
+                    projectName: projectName
+                });
 
-            // Remove tasks associated with the deleted project
-            const updatedTasks = tasks.filter(task => task.project !== projectName);
-            setTasks(updatedTasks);
+                // If the server responds successfully, update the state to reflect the deletion
+                const updatedProjects = projects.filter(project => project.name !== projectName);
+                setProjects(updatedProjects);
 
-            setCurrentProject(null);
+                // Remove tasks associated with the deleted project
+                const updatedTasks = tasks.filter(task => task.project !== projectName);
+                setTasks(updatedTasks);
+
+                setCurrentProject(null);
+            } catch (error) {
+                console.error('Error deleting project:', error);
+                alert('Failed to delete project. Please try again later.');
+            }
         }
-    }
+    };
 
-    const markTaskCompleted = (taskId) => {
-        const updatedTasks = tasks.map(task =>
-            task.id === taskId ? { ...task, completed: true } : task
-        );
-        setTasks(updatedTasks);
-    }
 
-    const deleteTask = (taskId) => {
-        const updatedTasks = tasks.filter(task => task.id !== taskId);
-        setTasks(updatedTasks);
-    }
+    const markTaskCompleted = async (taskId) => {
+        try {
+            // Send a request to the server to mark the task as completed
+            await axios.post('http://localhost:5000/api/markTaskCompleted', {
+                loggedInUsername: sessionStorage.getItem('loggedInUsername'),
+                projectName: currentProject.name,
+                taskId: taskId
+            });
+
+            // If the server responds successfully, update the state to reflect the change
+            const updatedTasks = tasks.map(task =>
+                task.id === taskId ? { ...task, completed: true } : task
+            );
+            setTasks(updatedTasks);
+        } catch (error) {
+            console.error('Error marking task as completed:', error);
+            alert('Failed to mark task as completed. Please try again later.');
+        }
+    };
+
+
+    const deleteTask = async (taskId) => {
+        try {
+            // Send a request to the server to delete the task
+            await axios.post('http://localhost:5000/api/deleteTask', {
+                loggedInUsername: sessionStorage.getItem('loggedInUsername'),
+                projectName: currentProject.name,
+                taskId: taskId
+            });
+
+            // If the server responds successfully, update the state to reflect the deletion
+            const updatedTasks = tasks.filter(task => task.id !== taskId);
+            setTasks(updatedTasks);
+        } catch (error) {
+            console.error('Error deleting task:', error);
+            alert('Failed to delete task. Please try again later.');
+        }
+    };
+
 
     // Calculate project completion percentage
     const projectCompletionPercentage = () => {

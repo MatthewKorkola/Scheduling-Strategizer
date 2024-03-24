@@ -41,7 +41,7 @@ const TaskForm = ({ addTask, createProject, selectProject, deleteProject, curren
             modifiedExpectedTime += '.0'
         }
 
-        addTask({ title, deadline, completed: false, expectedTime: modifiedExpectedTime });
+        addTask({ taskname: title, deadline, completed: false, expectedTime: modifiedExpectedTime });
         setTitle('');
         setDeadline('');
         setExpectedTime('');
