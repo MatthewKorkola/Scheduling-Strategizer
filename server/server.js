@@ -16,6 +16,7 @@ const addTaskRouter = require('./api/addTask');
 const markTaskCompletedRouter = require('./api/markTaskCompleted');
 const deleteTaskRouter = require('./api/deleteTask');
 const deleteProjectRouter = require('./api/deleteProject');
+const retrieveDataRouter = require('./api/retrieveData');
 
 app.use('/api/signup', signupRouter);
 app.use('/api/login', loginRouter);
@@ -24,6 +25,7 @@ app.use('/api/addTask', addTaskRouter);
 app.use('/api/markTaskCompleted', markTaskCompletedRouter);
 app.use('/api/deleteTask', deleteTaskRouter);
 app.use('/api/deleteProject', deleteProjectRouter);
+app.use('/api/retrieveData', retrieveDataRouter);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

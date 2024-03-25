@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import '../CSS/Header.css';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 
-const Header = () => {
+const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLoggedIn, setLoggedInUsername }) => {
     const [signUpUsername, setSignUpUsername] = useState('');
     const [signUpPassword, setSignUpPassword] = useState('');
     const [loginUsername, setLoginUsername] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
-    const [loggedIn, setLoggedIn] = useState(() => sessionStorage.getItem('loggedIn') === 'true');
-    const [loggedInUsername, setLoggedInUsername] = useState(() => sessionStorage.getItem('loggedInUsername') || '');
 
     const handleSignUp = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
@@ -19,7 +18,7 @@ const Header = () => {
         setSignUpPassword('');
         try {
             await axios.post('http://localhost:5000/api/signup', { username: signUpUsername, password: signUpPassword });
-            alert('Sign up successful!');
+            //alert('Sign up successful!');
         } catch (error) {
             if (error.response.status === 409) {
                 alert('Username already exists. Please choose another username.');
@@ -34,11 +33,8 @@ const Header = () => {
         try {
             const response = await axios.post('http://localhost:5000/api/login', { username: loginUsername, password: loginPassword });
             if (response.data.success) {
-                setLoggedIn(true);
-                setLoggedInUsername(loginUsername);
-                sessionStorage.setItem("loggedIn", "true");
-                sessionStorage.setItem("loggedInUsername", loginUsername);
-                alert('Login successful!');
+                onLoginSuccess(loginUsername);
+                //alert('Login successful!');
                 // Reset input fields
                 setLoginUsername("");
                 setLoginPassword("");
@@ -51,6 +47,7 @@ const Header = () => {
     };
 
     const handleLogout = () => {
+        onLogout();
         setLoggedIn(false);
         setLoggedInUsername('');
         sessionStorage.removeItem("loggedIn");
@@ -176,6 +173,15 @@ const Header = () => {
             </div>
         </header>
     );
+};
+
+Header.propTypes = {
+  onLoginSuccess: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+  loggedInUsername: PropTypes.string.isRequired,
+  setLoggedIn: PropTypes.func.isRequired,
+  setLoggedInUsername: PropTypes.func.isRequired,
 };
 
 export default Header;

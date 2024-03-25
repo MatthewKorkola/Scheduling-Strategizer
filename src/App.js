@@ -14,13 +14,99 @@ function App() {
 
     const [projects, setProjects] = useState([]); // State for projects
     const [currentProject, setCurrentProject] = useState(null); // State for current project
+    const [loggedIn, setLoggedIn] = useState(() => sessionStorage.getItem('loggedIn') === 'true');
+    const [loggedInUsername, setLoggedInUsername] = useState(() => sessionStorage.getItem('loggedInUsername') || '');
+
+    const handleLoginSuccess = (username) => {
+        setLoggedIn(true);
+        setLoggedInUsername(username);
+        sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("loggedInUsername", username);
+        // Retrieve projects and tasks from the server after successful login
+        //alert(username);
+        retrieveData(username);
+    };
+
+    const handleLogout = () => {
+      setTasks([]);
+      setProjects([]);
+      setCurrentProject(null);
+    }
+
+    const retrieveData = async (username) => {
+        // Fetch projects and tasks data from the server using axios
+        try {
+            const response = await axios.get(`http://localhost:5000/api/retrieveData?username=${username}`);
+            const { projects, tasks } = response.data;
+
+            // Format projects data
+            const formattedProjects = projects.map(project => ({
+                name: project.projectname,
+                tasks: []
+            }));
+
+            // Format tasks data
+            const formattedTasks = tasks.map(task => ({
+                id: task.taskid,
+                title: task.taskname,
+                deadline: formatDate(task.deadline),
+                completed: task.completed,
+                expectedTime: formatExpectedTime(task.expectedtime),
+                project: projects.find(project => project.projectid === task.projectid).projectname
+            }));
+
+            // Populate tasks under their respective projects
+            formattedProjects.forEach(project => {
+                project.tasks = formattedTasks.filter(task => task.project === project.name);
+            });
+
+            // Set the projects and tasks state
+            setProjects(formattedProjects);
+            setTasks(formattedTasks);
+
+            // Set the current project to the last project within the project data
+            if (formattedProjects.length > 0) {
+                setCurrentProject(formattedProjects[formattedProjects.length - 1]);
+            }
+        } catch (error) {
+            console.error('Error retrieving data:', error);
+            alert('Failed to retrieve data. Please try again later.');
+        }
+    };
+
+    // Function to format date
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+    };
+
+    // Function to format expected completion time
+    const formatExpectedTime = (expectedTime) => {
+        // Convert expectedTime to string without losing trailing zeros
+        const formattedTime = expectedTime.toString();
+
+        // Check if expectedTime has decimal part
+        if (formattedTime.includes('.')) {
+            // Split the number into integer and decimal parts
+            const [integerPart, decimalPart] = formattedTime.split('.');
+            
+            // If decimal part is longer than 2 characters, truncate it to 2 characters
+            const truncatedDecimalPart = decimalPart.slice(0, 2);
+
+            // Concatenate integer and decimal parts with '.' in between
+            return `${integerPart}.${truncatedDecimalPart}`;
+        } else {
+            // If there is no decimal part, return the original number
+            return formattedTime;
+        }
+    };
 
     const addTask = async (newTask) => {
         if (!currentProject) {
             alert('Please select a project first.');
             return;
         }
-        if (tasks.length >= 30) {
+        if (tasks.length >= 50) {
             alert('You have reached the maximum limit of tasks. Please delete a task before creating a new one.')
             return;
         }
@@ -173,6 +259,10 @@ function App() {
 
     // Calculate project completion percentage
     const projectCompletionPercentage = () => {
+      if (!loggedIn) {
+        return 'Log in First';
+      }
+      
       if (!currentProject) {
           return 'Select Project First';
       }
@@ -237,7 +327,14 @@ function App() {
     return (
         <div className="App">
             <div className="header-section">
-                <Header />
+                <Header 
+                  onLoginSuccess={handleLoginSuccess}
+                  onLogout={handleLogout} 
+                  loggedIn={loggedIn} 
+                  loggedInUsername={loggedInUsername} 
+                  setLoggedIn={setLoggedIn}
+                  setLoggedInUsername={setLoggedInUsername}
+                />
             </div>
             <div className="pomodoro-section">
                 <Pomodoro />
