@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Pomodoro from './components/Pomodoro'
 import TaskList from './components/TaskList';
@@ -17,6 +17,12 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(() => sessionStorage.getItem('loggedIn') === 'true');
     const [loggedInUsername, setLoggedInUsername] = useState(() => sessionStorage.getItem('loggedInUsername') || '');
 
+    useEffect(() => {
+        if (loggedIn) {
+            retrieveData(loggedInUsername);
+        }
+    }, [loggedIn, loggedInUsername]);
+
     const handleLoginSuccess = (username) => {
         setLoggedIn(true);
         setLoggedInUsername(username);
@@ -24,7 +30,7 @@ function App() {
         sessionStorage.setItem("loggedInUsername", username);
         // Retrieve projects and tasks from the server after successful login
         //alert(username);
-        retrieveData(username);
+        //retrieveData(username);
     };
 
     const handleLogout = () => {
@@ -61,12 +67,14 @@ function App() {
             });
 
             // Set the projects and tasks state
-            setProjects(formattedProjects);
-            setTasks(formattedTasks);
 
             // Set the current project to the last project within the project data
             if (formattedProjects.length > 0) {
+                setProjects(formattedProjects);
                 setCurrentProject(formattedProjects[formattedProjects.length - 1]);
+            }
+            if (formattedTasks.length > 0) {
+                setTasks(formattedTasks);
             }
         } catch (error) {
             console.error('Error retrieving data:', error);
@@ -106,8 +114,11 @@ function App() {
             alert('Please select a project first.');
             return;
         }
-        if (tasks.length >= 50) {
-            alert('You have reached the maximum limit of tasks. Please delete a task before creating a new one.')
+
+        // Count the number of tasks for the current project
+        const tasksForCurrentProject = tasks.filter(task => task.project === currentProject.name);
+        if (tasksForCurrentProject.length >= 50) {
+            alert('You have reached the maximum limit of tasks for this project. Please delete a task before creating a new one.')
             return;
         }
 
@@ -262,7 +273,7 @@ function App() {
       if (!loggedIn) {
         return 'Log in First';
       }
-      
+
       if (!currentProject) {
           return 'Select Project First';
       }

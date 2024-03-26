@@ -18,7 +18,7 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
         setSignUpPassword('');
         try {
             await axios.post('http://localhost:5000/api/signup', { username: signUpUsername, password: signUpPassword });
-            //alert('Sign up successful!');
+            alert('Sign up successful!');
         } catch (error) {
             if (error.response.status === 409) {
                 alert('Username already exists. Please choose another username.');
@@ -54,6 +54,19 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
         sessionStorage.removeItem("loggedInUsername");
     };
 
+    const handleDeleteAccount = async () => {
+        if (window.confirm('Are you sure you want to delete your account?')) {
+            try {
+                await axios.post('http://localhost:5000/api/deleteAccount', { username: sessionStorage.getItem('loggedInUsername') });
+                handleLogout();
+                alert('Account deleted.');
+            } catch (error) {
+                console.error('Error deleting account:', error);
+                alert('Failed to delete account. Please try again later.');
+            }
+        }
+    };
+
     return (
         <header>
             <h1>Task Manager</h1>
@@ -61,6 +74,7 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
                 {loggedIn ? (
                     <div>
                         <div className="welcome-text">Welcome, {loggedInUsername}</div>
+                        <button className="delete-button" onClick={handleDeleteAccount}>Delete Account</button>
                         <button className="button" onClick={handleLogout}>Logout</button>
                     </div>
                 ) : (
