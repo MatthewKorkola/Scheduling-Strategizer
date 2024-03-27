@@ -78,7 +78,7 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
 
     return (
         <header>
-            <h1>Task Manager</h1>
+            <h1>Scheduling Strategizer</h1>
             <div className="authentication">
                 {loggedIn ? (
                     <div>
