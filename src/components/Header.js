@@ -17,10 +17,19 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
         setSignUpUsername('');
         setSignUpPassword('');
         try {
+            // Check password length
+            if (signUpPassword.length < 8 || signUpPassword.length > 64) {
+                alert('Password must be between 8 and 64 characters long.');
+                return;
+            }
+            if (signUpUsername.length > 15) {
+                alert('Username can be at most 15 characters long.');
+                return;
+            }
             await axios.post('http://localhost:5000/api/signup', { username: signUpUsername, password: signUpPassword });
             alert('Sign up successful!');
         } catch (error) {
-            if (error.response.status === 409) {
+            if (error.response && error.response.status === 409) {
                 alert('Username already exists. Please choose another username.');
             } else {
                 alert('Sign up failed.');
@@ -86,7 +95,8 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
                                 <Dialog.Content className="DialogContent">
                                     <Dialog.Title className="DialogTitle">Sign Up</Dialog.Title>
                                     <Dialog.Description className="DialogDescription">
-                                        Enter your username and password to sign up.
+                                        Enter your username and password to sign up. <br/>
+                                        Your password must be at least 8 characters long.
                                     </Dialog.Description>
                                     <form onSubmit={handleSignUp}>
                                         <fieldset className="Fieldset">

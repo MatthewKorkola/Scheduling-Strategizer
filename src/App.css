@@ -5,7 +5,7 @@
 .header-section h1 {
   margin: 0;
   padding: 0;
-  background-color: #1991D3;
+  background-color: #1993D3;
   min-height: 8vh; /* 15% of viewport height */
   font-size: 45px;
   text-shadow: 
@@ -16,7 +16,7 @@
 }
 
 .header-section .authentication {
-  background-color: #1991D3;
+  background-color: #1993D3;
   min-height: 8vh; /* 15% of viewport height */
   border-bottom: 2px solid black; /* Black border */
 }
@@ -26,7 +26,7 @@
   padding: 0;
   background-color: #199FD3;
   min-height: 25vh; /* 15% of viewport height */
-  border-bottom: 2px solid black; /* Black border */
+  border-bottom: 1px solid black; /* Black border */
 }
 
 .pomodoro-section h2 {

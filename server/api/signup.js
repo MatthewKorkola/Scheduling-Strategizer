@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt-nodejs');
 const pool = require('../db');
 const router = express.Router();
 
@@ -11,8 +12,11 @@ router.post('/', async (req, res) => {
             return res.status(400).send('Username or password cannot be empty');
         }
 
+        // Hash the password
+        const hashedPassword = bcrypt.hashSync(password);
+
         // Insert user into the database
-        const newUser = await pool.query('INSERT INTO Users (username, password) VALUES ($1, $2) RETURNING *', [username, password]);
+        const newUser = await pool.query('INSERT INTO Users (username, password) VALUES ($1, $2) RETURNING *', [username, hashedPassword]);
 
         // Respond with the newly created user
         res.json(newUser.rows[0]);

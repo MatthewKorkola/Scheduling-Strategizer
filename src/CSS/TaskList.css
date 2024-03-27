@@ -17,7 +17,7 @@
 
 .task-list button {
 	padding: 10px 20px;
-    background-color: #0F7492;
+    background-color: #02C030;
     color: #fff;
     border: 2px solid black;
     border-radius: 5px;
@@ -27,7 +27,7 @@
 }
 
 .task-list button:hover {
-	background-color: #1397BE;
+	background-color: #82D038;
 }
 
 .DropdownMenuContent {

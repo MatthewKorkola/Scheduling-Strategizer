@@ -127,7 +127,7 @@
 }
 
 .popup-main input[type="checkbox"] {
-  width: 12px; /* Adjust checkbox size */
-  height: 12px; /* Adjust checkbox size */
+  width: 20px; /* Adjust checkbox size */
+  height: 20px; /* Adjust checkbox size */
   float: right;
 }
