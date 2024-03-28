@@ -4,13 +4,13 @@
 @import '@radix-ui/colors/mauve.css';
 
 .authentication .button {
-  margin-right: 10px; /* Right margin between buttons */
-  padding: 10px 20px; /* Padding for buttons */
-  font-size: 16px; /* Font size for buttons */
-  cursor: pointer; /* Cursor style for buttons */
-  border-radius: 5px; /* Rounded corners for buttons */
-  background-color: #0F7492; /* Button background color */
-  color: #fff; /* Button text color */
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #0F7492;
+  color: #fff;
   border: 2px solid black;
   transition: background-color 0.3s ease;
   margin-bottom: 10px;
@@ -18,17 +18,17 @@
 }
 
 .authentication .button:hover {
-  background-color: #1397BE; /* Button background color on hover */
+  background-color: #1397BE;
 }
 
 .authentication .delete-button {
-  margin-right: 10px; /* Right margin between buttons */
-  padding: 10px 20px; /* Padding for buttons */
-  font-size: 16px; /* Font size for buttons */
-  cursor: pointer; /* Cursor style for buttons */
-  border-radius: 5px; /* Rounded corners for buttons */
-  background-color: #0F7492; /* Button background color */
-  color: #fff; /* Button text color */
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #0F7492;
+  color: #fff;
   border: 2px solid black;
   transition: background-color 0.3s ease;
   margin-bottom: 10px;
@@ -36,7 +36,7 @@
 }
 
 .authentication .delete-button:hover {
-  background-color: darkred; /* Button background color on hover */
+  background-color: darkred;
 }
 
 

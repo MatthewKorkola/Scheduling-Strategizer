@@ -2,10 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// Middleware to handle JSON requests
 app.use(express.json());
 
-// Enable CORS if necessary
 app.use(cors());
 
 // Import and use API endpoints

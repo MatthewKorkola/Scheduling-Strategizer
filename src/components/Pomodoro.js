@@ -10,7 +10,7 @@ const Pomodoro = () => {
     const audio = new Audio(alarmSound);
     // Set the preload attribute to "auto"
     audio.preload = "auto";
-    
+
     const [timer, setTimer] = useState(1500); // Initial timer value: 25 minutes in seconds
     const [sessionCount, setSessionCount] = useState(0); // Track Pomodoro sessions
     const [timerType, setTimerType] = useState('Pomodoro'); // Initial timer type: work
@@ -33,7 +33,7 @@ const Pomodoro = () => {
                 switch (timerType) {
                     case 'Pomodoro':
                         if (sessionCount < numShortBreaks) {
-                            setTimer(shortBreakDuration * 60); // 5 minutes for short break
+                            setTimer(shortBreakDuration * 60);
                             setTimerType('Short Break');
                         } else {
                             setTimer(longBreakDuration * 60);
@@ -41,11 +41,11 @@ const Pomodoro = () => {
                         }
                         break;
                     case 'Short Break':
-                        setTimer(pomodoroDuration * 60); // 25 minutes for work
+                        setTimer(pomodoroDuration * 60);
                         setTimerType('Pomodoro');
                         break;
                     case 'Long Break':
-                        setTimer(pomodoroDuration * 60); // 25 minutes for work
+                        setTimer(pomodoroDuration * 60);
                         setTimerType('Pomodoro');
                         break;
                     default:
@@ -122,7 +122,7 @@ const Pomodoro = () => {
         switch (timerType) {
             case 'Pomodoro':
                 if (sessionCount < numShortBreaks) {
-                    setTimer(shortBreakDuration * 60); // 5 minutes for short break
+                    setTimer(shortBreakDuration * 60);
                     setTimerType('Short Break');
                 } else {
                     setTimer(longBreakDuration * 60);
@@ -130,11 +130,11 @@ const Pomodoro = () => {
                 }
                 break;
             case 'Short Break':
-                setTimer(pomodoroDuration * 60); // 25 minutes for work
+                setTimer(pomodoroDuration * 60);
                 setTimerType('Pomodoro');
                 break;
             case 'Long Break':
-                setTimer(pomodoroDuration * 60); // 25 minutes for work
+                setTimer(pomodoroDuration * 60);
                 setTimerType('Pomodoro');
                 break;
             default:
@@ -157,7 +157,6 @@ const Pomodoro = () => {
     };
 
     const playSoundEffect = () => {
-        // Play the sound effect
         audio.play();
     };
 

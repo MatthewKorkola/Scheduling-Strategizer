@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   background-color: #1993D3;
-  min-height: 8vh; /* 15% of viewport height */
+  min-height: 8vh;
   font-size: 50px;
   text-shadow: 
     -1px -1px 0 darkblue,  
@@ -17,16 +17,16 @@
 
 .header-section .authentication {
   background-color: #1993D3;
-  min-height: 8vh; /* 15% of viewport height */
-  border-bottom: 2px solid black; /* Black border */
+  min-height: 8vh;
+  border-bottom: 2px solid black;
 }
 
 .pomodoro-section {
   margin: 0;
   padding: 0;
   background-color: #199FD3;
-  min-height: 25vh; /* 15% of viewport height */
-  border-bottom: 1px solid black; /* Black border */
+  min-height: 25vh;
+  border-bottom: 1px solid black;
 }
 
 .pomodoro-section h2 {
@@ -44,12 +44,12 @@
 
 .task-form-section {
   background-color: #19ACD3;
-  min-height: 15vh; /* 15% of viewport height */
-  border-bottom: 2px solid black; /* Black border */
+  min-height: 15vh;
+  border-bottom: 2px solid black; 
 }
 
 .task-list-section {
   background-color: #19BFD3;
-  min-height: 52vh; /* Remaining height */
+  min-height: 52vh;
 }
 

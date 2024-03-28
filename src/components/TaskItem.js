@@ -1,7 +1,6 @@
-// TaskItem.js
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../CSS/TaskItem.css'; // Import CSS file
+import '../CSS/TaskItem.css';
 
 const TaskItem = ({ task, markTaskCompleted, deleteTask }) => {
     const { id, title, deadline, completed, expectedTime } = task;

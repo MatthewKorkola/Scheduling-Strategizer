@@ -14,15 +14,15 @@ router.post('/', async (req, res) => {
             [loggedInUsername]
         );
 
-        const userId = user.rows[0].userid; // Assuming 'userid' is the correct column name
+        const userId = user.rows[0].userid;
 
         // Get the ProjectID of the specified project
         const project = await pool.query(
             'SELECT ProjectID FROM Projects WHERE UserID = $1 AND ProjectName = $2',
-            [userId, taskDetails.project] // Assuming 'userid' and 'projectname' are the correct column names
+            [userId, taskDetails.project] 
         );
 
-        const projectId = project.rows[0].projectid; // Assuming 'projectid' is the correct column name
+        const projectId = project.rows[0].projectid; 
 
         // Insert task into the database, associating it with the logged-in user and the specified project
         const newTask = await pool.query(

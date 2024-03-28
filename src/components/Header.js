@@ -38,7 +38,7 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
     };
 
     const handleLogin = async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
+        e.preventDefault(); 
         try {
             const response = await axios.post('http://localhost:5000/api/login', { username: loginUsername, password: loginPassword });
             if (response.data.success) {
