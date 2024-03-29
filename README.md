@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Scheduling Strategizer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Author
+Matthew Korkola
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+Scheduling Strategizer is a task manager website designed to help users work productively. Users log in to enter and save their projects and tasks. By gradually marking their tasks as completed, users work towards 100% project completion. User efficiency is ensured thanks to the Pomodoro timer. For anyone looking to sensibly organize their work and complete more of it in less time, Scheduling Strategizer is the website to visit.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Sign up: Create an account to have access to the task manager.
+- Log in: Access your account to view automatically saved projects and tasks.
+- Log out: Log out of your account.
+- Delete Account: Delete your account along with all saved projects and tasks.
+- View Timer: See how much time the timer has left before the next work sesssion or break.
+- Start Timer: Allow the timer to count down.
+- Pause Timer: Stop the timer from counting down.
+- Skip Timer: Skip to the next work session or break timer.
+- Change Timer Settings: Adjust the lengths of the Pomodoro timer, short break timer, and long break timer.
+- Change Other Settings: Adjust the number of breaks, enable/disable timer sound effect, enable/disable automatic count down.
+- Create Project: Add a new project to your account.
+- Select Project: Select a project from your project list as the current project.
+- Delete Project: Select a project from your project list to delete.
+- Create Task: Add a new task to the current project.
+- View Project Completion: See the project completion percentage for the current project.
+- View Tasks: See a list of the tasks within the current project.
+- Sort Tasks: Arrange tasks with the current project by deadline, expected completion time, or completion status.
+- Mark Tasks as Completed: Set completion status to complete once the task is finished.
+- Delete Tasks: Delete a task from the current project.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup
 
-### `npm test`
+To set up Scheduling Strategizer:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Clone or download the repository.
+2. Run "nodemon server.js" in the server directory.
+3. Run "npm start" in the task-manager directory.

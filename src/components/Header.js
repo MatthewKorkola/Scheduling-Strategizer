@@ -84,16 +84,16 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
                     <div>
                         <div className="welcome-text">Welcome, {loggedInUsername}</div>
                         <button className="delete-button" onClick={handleDeleteAccount}>Delete Account</button>
-                        <button className="button" onClick={handleLogout}>Logout</button>
+                        <button className="button" onClick={handleLogout}>Log out</button>
                     </div>
                 ) : (
                     <div>
                         <Dialog.Root>
-                            <Dialog.Trigger as="button" className="button">Sign Up</Dialog.Trigger>
+                            <Dialog.Trigger as="button" className="button">Sign up</Dialog.Trigger>
                             <Dialog.Portal>
                                 <Dialog.Overlay className="DialogOverlay" />
                                 <Dialog.Content className="DialogContent">
-                                    <Dialog.Title className="DialogTitle">Sign Up</Dialog.Title>
+                                    <Dialog.Title className="DialogTitle">Sign up</Dialog.Title>
                                     <Dialog.Description className="DialogDescription">
                                         Enter your username and password to sign up. <br/>
                                         Your password must be at least 8 characters long.
@@ -127,7 +127,7 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
                                                 required
                                             />
                                         </fieldset>
-                                        <button type="submit" className="Button green">Sign Up</button>
+                                        <button type="submit" className="Button green">Sign up</button>
                                     </form>
                                     <Dialog.Close asChild>
                                         <button className="IconButton" aria-label="Close" onClick={() => {
@@ -141,11 +141,11 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
                             </Dialog.Portal>
                         </Dialog.Root>
                         <Dialog.Root>
-                            <Dialog.Trigger as="button" className="button">Login</Dialog.Trigger>
+                            <Dialog.Trigger as="button" className="button">Log in</Dialog.Trigger>
                             <Dialog.Portal>
                                 <Dialog.Overlay className="DialogOverlay" />
                                 <Dialog.Content className="DialogContent">
-                                    <Dialog.Title className="DialogTitle">Login</Dialog.Title>
+                                    <Dialog.Title className="DialogTitle">Log in</Dialog.Title>
                                     <Dialog.Description className="DialogDescription">
                                         Enter your username and password to log in. <br/>
                                         All created projects and tasks are saved to your account.
@@ -179,7 +179,7 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
                                                 required
                                             />
                                         </fieldset>
-                                        <button type="submit" className="Button green">Login</button>
+                                        <button type="submit" className="Button green">Log in</button>
                                     </form>
                                     <Dialog.Close asChild>
                                         <button className="IconButton" aria-label="Close" onClick={() => {

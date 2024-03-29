@@ -1,3 +1,5 @@
+// Author: Matthew Korkola
+
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Pomodoro from './components/Pomodoro'
