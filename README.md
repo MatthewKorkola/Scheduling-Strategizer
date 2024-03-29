@@ -34,5 +34,11 @@ Scheduling Strategizer is a task manager website designed to help users work pro
 To set up Scheduling Strategizer:
 
 1. Clone or download the repository.
-2. Run "nodemon server.js" in the server directory.
-3. Run "npm start" in the task-manager directory.
+2. Install Postgresql.
+3. Make your own Postgresql database with the information in databaseSetup.sql.
+4. Run npm install express && npm install cors && npm install pg && npm install bcrypt-nodejs in the root directory.
+5. Modify db.js (in the server directory) to use the information for your own database.
+6. Run npm install in the root directory.
+7. Run npm install nodemon in the server directory.
+8. Run nodemon server.js in the server directory.
+9. Run npm start in the root directory.
