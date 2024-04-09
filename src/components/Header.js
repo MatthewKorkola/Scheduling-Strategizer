@@ -26,7 +26,7 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
                 alert('Username can be at most 15 characters long.');
                 return;
             }
-            await axios.post('http://localhost:5000/api/signup', { username: signUpUsername, password: signUpPassword });
+            await axios.post('https://scheduling-strategizer-server.onrender.com/api/signup', { username: signUpUsername, password: signUpPassword });
             alert('Sign up successful!');
         } catch (error) {
             if (error.response && error.response.status === 409) {
@@ -40,7 +40,7 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
     const handleLogin = async (e) => {
         e.preventDefault(); 
         try {
-            const response = await axios.post('http://localhost:5000/api/login', { username: loginUsername, password: loginPassword });
+            const response = await axios.post('https://scheduling-strategizer-server.onrender.com/api/login', { username: loginUsername, password: loginPassword });
             if (response.data.success) {
                 onLoginSuccess(loginUsername);
                 //alert('Login successful!');
@@ -66,7 +66,7 @@ const Header = ({ onLoginSuccess, onLogout, loggedIn, loggedInUsername, setLogge
     const handleDeleteAccount = async () => {
         if (window.confirm('Are you sure you want to delete your account?')) {
             try {
-                await axios.post('http://localhost:5000/api/deleteAccount', { username: sessionStorage.getItem('loggedInUsername') });
+                await axios.post('https://scheduling-strategizer-server.onrender.com/api/deleteAccount', { username: sessionStorage.getItem('loggedInUsername') });
                 handleLogout();
                 alert('Account deleted.');
             } catch (error) {
