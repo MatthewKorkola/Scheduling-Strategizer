@@ -44,7 +44,7 @@ function App() {
     const retrieveData = async (username) => {
         // Fetch projects and tasks data from the server using axios
         try {
-            const response = await axios.get(`http://localhost:5000/api/retrieveData?username=${username}`);
+            const response = await axios.get(`https://scheduling-strategizer-server.onrender.com/api/retrieveData?username=${username}`);
             const { projects, tasks } = response.data;
 
             // Format projects data
@@ -126,7 +126,7 @@ function App() {
 
         try {
             // Send a request to the server to add the task
-            const response = await axios.post('http://localhost:5000/api/addTask', {
+            const response = await axios.post('https://scheduling-strategizer-server.onrender.com/api/addTask', {
                 taskDetails: { ...newTask, project: currentProject.name },
                 loggedInUsername: sessionStorage.getItem('loggedInUsername')
             });
@@ -175,7 +175,7 @@ function App() {
 
         try {
             // Send a request to the server to create the project
-            const response = await axios.post('http://localhost:5000/api/createProject', {
+            const response = await axios.post('https://scheduling-strategizer-server.onrender.com/api/createProject', {
                 projectDetails: { name: newProjectName },
                 loggedInUsername: sessionStorage.getItem('loggedInUsername')
             });
@@ -208,7 +208,7 @@ function App() {
         if (window.confirm(`Are you sure you want to delete the project "${projectName}"?`)) {
             try {
                 // Send a request to the server to delete the project
-                await axios.post('http://localhost:5000/api/deleteProject', {
+                await axios.post('https://scheduling-strategizer-server.onrender.com/api/deleteProject', {
                     loggedInUsername: sessionStorage.getItem('loggedInUsername'),
                     projectName: projectName
                 });
@@ -233,7 +233,7 @@ function App() {
     const markTaskCompleted = async (taskId) => {
         try {
             // Send a request to the server to mark the task as completed
-            await axios.post('http://localhost:5000/api/markTaskCompleted', {
+            await axios.post('https://scheduling-strategizer-server.onrender.com/api/markTaskCompleted', {
                 loggedInUsername: sessionStorage.getItem('loggedInUsername'),
                 projectName: currentProject.name,
                 taskId: taskId
@@ -254,7 +254,7 @@ function App() {
     const deleteTask = async (taskId) => {
         try {
             // Send a request to the server to delete the task
-            await axios.post('http://localhost:5000/api/deleteTask', {
+            await axios.post('https://scheduling-strategizer-server.onrender.com/api/deleteTask', {
                 loggedInUsername: sessionStorage.getItem('loggedInUsername'),
                 projectName: currentProject.name,
                 taskId: taskId
